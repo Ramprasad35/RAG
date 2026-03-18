@@ -4,6 +4,6 @@ def pdf_reader(filename):
     reader = PdfReader(filename)
     text =""
     for pages in reader.pages:
-        text+=pages.extract.text()
+        text+=pages.extract_text()
 
-    print(text[:1000])
+    return text
