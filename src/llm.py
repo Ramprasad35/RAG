@@ -10,3 +10,8 @@ def get_answer(context,query):
         ]     
     )
     print("response.choices.[0].messages.content")
+
+
+
+
+    
