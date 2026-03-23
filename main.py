@@ -30,4 +30,4 @@ def main():
     answer = get_answer(context,query)
     
 
-    print(results)
+    print(results) 
