@@ -5,7 +5,7 @@ import numpy as np
 
 def create_index(embeddings):
     dimensions = embeddings.shape[1]
-    index = faiss.indexFlatL2(dimensions)
+    index = faiss.IndexFlatL2(dimensions)
     index.add(np.array(embeddings))
     return index
 
@@ -25,5 +25,5 @@ def save_chunks(chunks,path="chunks.pkl"):
 
 def load_chunks(path="chunk.pkl"):
     with open(path,"rb") as f:
-        return pickle.laod(f)
+        return pickle.load(f)
     

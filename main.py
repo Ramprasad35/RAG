@@ -4,15 +4,17 @@ from src.VectorDB import search , create_index,save_index,load_index,load_chunks
 from src.embedding import query_embedding , get_embedding
 import os
 from src.llm import get_answer 
+import numpy as np
 
 def main():
-    text = pdf_reader("filename.pdf")
+    text = pdf_reader("C:\\Users\\RamprasadSK\\OneDrive - ConceptVines\\Documents\\RAG\\DATA\\sample.pdf")
     
     chunks = chunk_text(text=text, chunk_size=500)
 
-    embeddings= get_embedding(chunks)
+    embeddings= [get_embedding(chunks)for chunk in chunks]
+    embeddings = np.array(embeddings)
 
-    if os.path.exist("faiss_index_bin"):
+    if os.path.exists("faiss_index_bin"):
          index = load_index()
          chunks = load_chunks()
     else:
@@ -29,5 +31,10 @@ def main():
 
     answer = get_answer(context,query)
     
+    
+    print("\n".join(results))
 
-    print(results) 
+if __name__ == "__main__":
+     main()
+
+    
