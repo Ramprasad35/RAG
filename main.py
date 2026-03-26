@@ -9,12 +9,12 @@ import numpy as np
 def main():
     text = pdf_reader("C:\\Users\\RamprasadSK\\OneDrive - ConceptVines\\Documents\\RAG\\DATA\\sample.pdf")
     
-    chunks = chunk_text(text=text, chunk_size=500)
+    chunks = chunk_text(text=text, chunk_size=300)
 
-    embeddings= [get_embedding(chunks)for chunk in chunks]
+    embeddings= [get_embedding(chunk)for chunk in chunks]
     embeddings = np.array(embeddings)
 
-    if os.path.exists("faiss_index_bin"):
+    if os.path.exists("faiss_index.bin"):
          index = load_index()
          chunks = load_chunks()
     else:
@@ -25,12 +25,8 @@ def main():
     query = input("Answer a question:")
     query_vec = query_embedding(query)
 
-    results = search(index,query_vec,chunks)
-
-    context = "\n".join(results)
-
-    answer = get_answer(context,query)
-    
+    results = search(index,query_vec,chunks,k=5)
+    results = list(set(results))
     
     print("\n".join(results))
 
