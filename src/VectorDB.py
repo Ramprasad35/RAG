@@ -11,6 +11,8 @@ def create_index(embeddings):
 
 def search(index,query_embedding,chunks,k=3):
     D,I = index.search(query_embedding,k)
+    if D[0][0] > 1.0:
+      return []  
     return [chunks[i] for i in I[0]]
 
 def save_index(index,path="faiss_index.bin"):

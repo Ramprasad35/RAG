@@ -3,7 +3,7 @@ from src.text_processing import chunk_text
 from src.VectorDB import search , create_index,save_index,load_index,load_chunks,save_chunks
 from src.embedding import query_embedding , get_embedding
 import os
-from src.llm import get_answer 
+from src.llm import get_answer
 import numpy as np
 
 def main():
@@ -26,8 +26,11 @@ def main():
     query_vec = query_embedding(query)
 
     results = search(index,query_vec,chunks,k=5)
+    if not results:
+         print("Not in the PDF")
+
     results = list(set(results))
-    
+
     print("\n".join(results))
 
 if __name__ == "__main__":
