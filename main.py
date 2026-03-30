@@ -7,9 +7,19 @@ from src.llm import get_answer
 import numpy as np
 
 def main():
-    text = pdf_reader("C:\\Users\\RamprasadSK\\OneDrive - ConceptVines\\Documents\\RAG\\DATA\\sample.pdf")
+    all_chunks = []
+    for pdf_file in os.listdir("data"):
+       if pdf_file.endswith(".pdf"):
+          pages = pdf_reader(f"DATA/{pdf_file}")
     
-    chunks = chunk_text(text=text, chunk_size=300)
+    for page_num , page_text in enumerate(pages):
+         chunks = chunk_text(page_text)
+         for chunk in chunks:
+              all_chunks.append({
+                   "text": chunk ,
+                   "source": pdf_file ,
+                   "page":page_num
+              })    
 
     embeddings= [get_embedding(chunk)for chunk in chunks]
     embeddings = np.array(embeddings)
@@ -22,7 +32,7 @@ def main():
          save_index(index)
          save_chunks(chunks)
 
-    query = input("Answer a question:")
+    query = input("Ask  a question:")
     query_vec = query_embedding(query)
 
     results = search(index,query_vec,chunks,k=5)
@@ -31,6 +41,7 @@ def main():
 
     results = list(set(results))
 
+    print(all_chunks[0])
     print("\n".join(results))
 
 if __name__ == "__main__":

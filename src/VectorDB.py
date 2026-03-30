@@ -15,7 +15,7 @@ def search(index,query_embedding,chunks,k=3):
       return []  
     return [chunks[i] for i in I[0]]
 
-def save_index(index,path="faiss_index.bin"):
+def save_index(index,path="faiss_index.bin"): 
     faiss.write_index(index,path)
 
 def load_index(path="faiss_index.bin"):
