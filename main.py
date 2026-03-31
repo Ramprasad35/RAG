@@ -41,10 +41,8 @@ def main():
 
     results = list(set(results))
 
-    print(all_chunks[0])
+    print(all_chunks[3])
     print("\n".join(results))
 
 if __name__ == "__main__":
-     main()
-
-    
+     main() 
