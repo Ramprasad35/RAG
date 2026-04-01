@@ -6,14 +6,14 @@ def ollama_answer(context,query):
         json = {
                 "model" : "llama3",
                 "messages": [
-                 {"role":"system", "content":"Answer only from the context"},
+                 {"role":"system", "content":"Answer clearly using the context.Do not copy.explain in your own words"},
                  {"role":"user", "content": f"context:\n{context}\n\nQuestion:\n{query}"} 
-                ]
+                ],
+                "stream": False
         }
     )
 
-    data = response.json()
-    data = response.json()
+    data = response.json()                                                                                                                                     
 
     if "message" in data:
         return data["message"]["content"]
