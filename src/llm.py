@@ -11,7 +11,7 @@ def get_answer(context,query):
     )
     print("response.choices.[0].messages.content")
 
-
-
-
-    
+from openai import Openai 
+client = OpenAI()
+def get_answer(context,query):
+    response =    
