@@ -34,23 +34,40 @@ def main():
           save_chunks(chunks)
 
      query = input("Ask  a question:")
+     
+     if not query.strip():
+           print("give any valid question")
+           return
      query_vec = query_embedding(query)
 
      results = search(index,query_vec,all_chunks,k=5)
+
+     if not results:
+           print("No relevent answer found")
+           return 
+
      results = [r for r in results if len(r["text"].strip())>30]
 
-     context = "\n".join(c["text"]for c in results)
 
-
-          
-     answer = get_answer(context,query)
-     print(answer)
+     context = "\n".join([c["text"]for c in results])
+     
+     if not context.strip():
+           print("Empty context.")
+           return
+     
+     try:
+          answer = get_answer(context,query)
+          print(answer)
+     except:
+           print("LLM ERROR")
      
      source_pages = defaultdict(set)
      for c in results:
           source_pages[c["source"]].add(c["page"])
      for s,pages in source_pages.items():
           print(f"Source:{s} | Pages:{sorted(pages)}")
+
+     
 
 if __name__ == "__main__": 
           main() 
