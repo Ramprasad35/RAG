@@ -18,38 +18,40 @@ class Query(BaseModel):
     
 @app.post("/ask")
 def ask(q: Query):
+    try:
+        query = q.query
 
-    query = q.query
+        if not query.strip():
+            return{"error":"Empty query"}
 
-    if not query.strip():
-        return{"error":"Empty query"}
+        query_vec = query_embedding(query)
+        results =search(index,query_vec, all_chunks ,k=5)
 
-    query_vec = query_embedding(query)
-    results =search(index,query_vec, all_chunks ,k=5)
+        if not  results:
+            return{"message":"Not inside the document","Source" : []}
 
-    if not  results():
-        return{"message":"Not inside the document","Source" : []}
-
-    context = "/n".join(c["text"]for c in  results)
-        
-    if not  context.strip():
-        return {"message":"Empty context" , "Source":[]}
+        context = "\n".join(c["text"]for c in  results)
+            
+        if not  context.strip():
+            return {"message":"Empty context" , "Source":[]}
 
 
-    answer = get_answer(context,query)
+        answer = get_answer(context,query)
 
-    from collections import defaultdict
-    source_pages = defaultdict(set)
+        from collections import defaultdict
+        source_pages = defaultdict(set)
 
-    for c in results:
-        sources[c["sources"]].add (c["pages"])
+        for c in results:
+            source_pages[c["source"]] .add(c["page"])
 
-    sources=[
-        {"sources": s ,"pages":sorted(list(p))}
-            for s,p in source_pages.items()
-        ]
+        sources=[
+            {"sources": s ,"pages":sorted(list(p))}
+                for s,p in source_pages.items()
+            ]
 
-    return{"answer":answer , "source":sources}
+        return{"answer":answer , "source":sources}
 
-    
+    except Exception as e:
+        print(" REAL ERROR:",e)
+        return {"error":str(e)}
 

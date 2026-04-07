@@ -21,9 +21,9 @@ def save_index(index,path="faiss_index.bin"):
 def load_index(path="faiss_index.bin"):
     return faiss.read_index(path) 
 
-def save_chunks(chunks,path="chunks.pkl"):
+def save_chunks(all_chunks,path="chunks.pkl"):
     with open(path,"wb") as f:
-        pickle.dump(chunks,f)
+        pickle.dump(all_chunks,f)
 
 def load_chunks(path="chunks.pkl"):
     with open(path,"rb") as f:

@@ -7,7 +7,7 @@ if st.button("Ask"):
     if query.strip():
         response = requests.post(
             "http://localhost:8000/ask",
-            json = {"query":query}
+            json = {"query":query} 
         )
         data = response.json()
         
@@ -17,6 +17,6 @@ if st.button("Ask"):
         st.write("### Sources")
         for s in data.get("sources",[]):
             st.write(f"{s["sources"]} - Pages: {s["pages"]}")
-
+        st.write(response.text)
 else:
     st.warning("Enter a valid question")

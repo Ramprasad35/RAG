@@ -31,7 +31,7 @@ def main():
      else:
           index = create_index(embeddings)
           save_index(index)
-          save_chunks(chunks)
+          save_chunks(all_chunks)
 
      query = input("Ask  a question:")
      
