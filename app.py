@@ -11,7 +11,7 @@ all_chunks = load_chunks()
 
 @app.get("/")
 def home():
-    return{"RAG is running "}
+    return{"RAG is running "}   
 
 class Query(BaseModel):
     query:str
@@ -32,7 +32,7 @@ def ask(q: Query):
 
         context = "\n".join(c["text"]for c in  results)
             
-        if not  context.strip():
+        if not  context.strip():    
             return {"message":"Empty context" , "Source":[]}
 
 
