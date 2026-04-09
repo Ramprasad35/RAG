@@ -31,7 +31,7 @@ def main():
      else:
           index = create_index(embeddings)
           save_index(index)
-          save_chunks(chunks)
+          save_chunks(all_chunks)
 
      query = input("Ask  a question:")
      
@@ -64,7 +64,7 @@ def main():
      source_pages = defaultdict(set)
      for c in results:
           source_pages[c["source"]].add(c["page"])
-     for s,pages in source_pages.items():
+     for s,pages in source_pages.items(): 
           print(f"Source:{s} | Pages:{sorted(pages)}")
 
      
