@@ -17,6 +17,6 @@ if st.button("Ask"):
         st.write("### Sources")
         for s in data.get("sources",[]):
             st.write(f"{s["sources"]} - Pages: {s["pages"]}")
-        st.write(response.text) 
+        st.write(data)
 else:
     st.warning("Enter a valid question")    

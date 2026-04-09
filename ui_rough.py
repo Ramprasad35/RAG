@@ -1,1 +1,1 @@
-fatt
+import fastapi from FastAPI

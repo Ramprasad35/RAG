@@ -3,6 +3,7 @@ from src.VectorDB import search,load_index ,load_chunks
 from src.embedding import query_embedding
 from llm.router import get_answer
 from pydantic import BaseModel
+from collections import defaultdict 
 
 app = FastAPI()
 
@@ -38,7 +39,6 @@ def ask(q: Query):
 
         answer = get_answer(context,query)
 
-        from collections import defaultdict
         source_pages = defaultdict(set)
 
         for c in results:
