@@ -10,13 +10,13 @@ if st.button("Ask"):
             json = {"query":query}  
         )
         data = response.json()
-        
+ 
         st.write("### Answer")
         st.write(data.get("answer"))
 
         st.write("### Sources")
         for s in data.get("sources",[]):
-            st.write(f"{s["sources"]} - Pages: {s["pages"]}")
-        st.write(response.text) 
+            st.write(f"{s["source"]} - Pages: {s["pages"]}")
+        
 else:
     st.warning("Enter a valid question")    
