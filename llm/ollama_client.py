@@ -2,7 +2,7 @@ import requests
 import time
 
 def ollama_answer(context,query):
-        url="http://localhost:11434/api/wrong"
+        url="http://localhost:11434/api/chat"
         payload= {
                 "model" : "llama3",
                 "messages": [
@@ -16,7 +16,7 @@ def ollama_answer(context,query):
                 try:
                     response = requests.post(url,json=payload,timeout=30)
                     data = response.json()
-                                            
+                                               
                     if "message" in data:
                         return data["message"]["content"]
                     elif "response" in data:
